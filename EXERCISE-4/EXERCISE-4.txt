@@ -1,0 +1,103 @@
+3)
+// Import the url module
+const url = require('url');
+
+// Function to parse the given URL
+function parseURL(inputURL) {
+    // Parse the URL using the url module's parse method
+    const parsedURL = url.parse(inputURL, true);
+
+    // Output the parsed components
+    console.log('Parsed URL:');
+    console.log('Protocol:', parsedURL.protocol);
+    console.log('Host:', parsedURL.host);
+    console.log('Hostname:', parsedURL.hostname);
+    console.log('Port:', parsedURL.port);
+    console.log('Path:', parsedURL.path);
+    console.log('Query:', parsedURL.query);
+    console.log('Hash:', parsedURL.hash);
+}
+
+// Example usage
+const inputURL = 'https://www.example.com:8080/path/to/resource?param1=value1&param2=value2#section1';
+parseURL(inputURL);
+
+
+
+4)
+
+// Import the http module
+const http = require('http');
+
+// Create a server
+const server = http.createServer((req, res) => {
+    // Check if the request contains a 'Cookie' header
+    if (req.headers.cookie) {
+        // Split the cookie header string into individual cookies
+        const cookies = req.headers.cookie.split(';');
+
+        // Output each cookie
+        console.log('Cookies:');
+        cookies.forEach(cookie => {
+            console.log(cookie.trim());
+        });
+    } else {
+        console.log('No cookies found in the request headers.');
+    }
+
+    // Send a response
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    res.end('Request received. Check the server console for cookies.');
+});
+
+// Set the port and start the server
+const port = 3000;
+server.listen(port, () => {
+    console.log(`Server running at http://localhost:${port}`);
+});
+
+
+5)
+
+// Input string
+const inputString = "This is a sample string with aaaa and some other text.";
+
+// Regular expression pattern to match two or more consecutive 'a's
+const regexPattern = /aa+/g;
+
+// Replace 'aa' occurrences with 'b'
+const resultString = inputString.replace(regexPattern, 'b');
+
+// Output the result
+console.log("Original String:", inputString);
+console.log("String with 'aa' replaced by 'b':", resultString);
+
+
+6)
+
+// Given object in JSON format
+const jsonObject = {
+    "name": "John",
+    "age": 30,
+    "city": "New York"
+};
+
+// Print the properties of the object
+console.log("Original Object Properties:");
+for (const key in jsonObject) {
+    console.log(`${key}: ${jsonObject[key]}`);
+}
+
+// Delete the second property
+const keys = Object.keys(jsonObject);
+if (keys.length >= 2) {
+    const secondProperty = keys[1];
+    delete jsonObject[secondProperty];
+    console.log(`Deleted second property "${secondProperty}".`);
+} else {
+    console.log("Object doesn't have a second property to delete.");
+}
+
+// Get the length of the object
+const objectLength = Object.keys(jsonObject).length;
+console.log(`Length of the object after deletion: ${objectLength}`);

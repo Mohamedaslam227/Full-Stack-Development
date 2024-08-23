@@ -1,0 +1,77 @@
+<html>
+<head>
+  <title>Simple Drag and Drop</title>
+  <style>
+    ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 20px;
+    }
+
+    li {
+      border: 1px solid #ddd;
+      margin: 5px;
+      padding: 10px;
+      cursor: grab;
+      user-select: none;
+      transition: background-color 0.3s ease;
+    }
+
+    li.dragged {
+      opacity: 0.5;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Simple Drag and Drop</h1>
+  <p>Drag and drop the items to reorder the list.</p>
+
+  <ul id="sortable-list">
+    <li draggable="true">Item 1</li>
+    <li draggable="true">Item 2</li>
+    <li draggable="true">Item 3</li>
+    <li draggable="true">Item 4</li>
+    <li draggable="true">Item 5</li>
+  </ul>
+
+  <script>
+    let dragged;
+
+    function handleDragStart(e) {
+      dragged = e.target;
+      e.dataTransfer.effectAllowed = 'move';
+    }
+
+    function handleDragOver(e) {
+      e.preventDefault();
+      const target = e.target;
+      target.style.backgroundColor = 'lightgray';
+    }
+
+    function handleDragLeave(e) {
+      const target = e.target;
+      target.style.backgroundColor = '';
+    }
+
+    function handleDrop() {
+      const list = document.getElementById('sortable-list');
+      const target = event.target;
+      target.style.backgroundColor = '';
+      list.insertBefore(dragged, target);
+    }
+
+    function handleDragEnd() {
+      dragged.classList.remove('dragged');
+    }
+
+    const list = document.getElementById('sortable-list');
+    list.addEventListener('dragstart', handleDragStart);
+    list.addEventListener('dragover', handleDragOver);
+    list.addEventListener('dragleave', handleDragLeave);
+    list.addEventListener('drop', handleDrop);
+    list.addEventListener('dragend', handleDragEnd);
+  </script>
+
+</body>
+</html>

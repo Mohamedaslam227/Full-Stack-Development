@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>15 Puzzle Game</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      margin: 20px auto;
+    }
+
+    td {
+      width: 50px;
+      height: 50px;
+      border: 1px solid #000;
+      text-align: center;
+      cursor: pointer;
+      font-size: 20px;
+    }
+
+    .empty {
+      background-color: #ddd;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>15 Puzzle Game</h1>
+  <p>Click on a tile to move it into the empty slot and try to arrange the numbers in sequential order.</p>
+
+  <table id="puzzle">
+  </table>
+
+  <script>
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+    }
+    function initializeBoard() {
+      const numbers = [...Array(15).keys()].map(i => i + 1); // 1 to 15
+      shuffleArray(numbers);
+
+      const puzzleTable = document.getElementById("puzzle");
+
+      for (let i = 0; i < 4; i++) {
+        const row = puzzleTable.insertRow(i);
+        for (let j = 0; j < 4; j++) {
+          const cell = row.insertCell(j);
+          const number = numbers.pop();
+
+          if (number !== undefined) {
+            cell.textContent = number;
+            cell.onclick = function() {
+              moveTile(i, j);
+            };
+          } else {
+            cell.className = "empty";
+          }
+        }
+      }
+    }
+    function moveTile(row, col) {
+      const puzzleTable = document.getElementById("puzzle");
+      const emptyCell = puzzleTable.querySelector(".empty");
+      const currentCell = puzzleTable.rows[row].cells[col];
+
+      if (isAdjacent(emptyCell, currentCell)) {
+        emptyCell.textContent = currentCell.textContent;
+        emptyCell.className = "";
+        currentCell.textContent = "";
+        currentCell.className = "empty";
+      }
+      if (isPuzzleSolved()) {
+        alert("Congratulations! You solved the puzzle!");
+        initializeBoard(); 
+      }
+    }
+    function isAdjacent(cell1, cell2) {
+      const row1 = cell1.parentNode.rowIndex;
+      const col1 = cell1.cellIndex;
+      const row2 = cell2.parentNode.rowIndex;
+      const col2 = cell2.cellIndex;
+
+      return (
+        Math.abs(row1 - row2) + Math.abs(col1 - col2) === 1 &&
+        (row1 === row2 || col1 === col2)
+      );
+    }
+    function isPuzzleSolved() {
+      const puzzleTable = document.getElementById("puzzle");
+      let currentNumber = 1;
+
+      for (let i = 0; i < 4; i++) {
+        for (let j = 0; j < 4; j++) {
+          const cell = puzzleTable.rows[i].cells[j];
+          if (cell.textContent !== "" && parseInt(cell.textContent) !== currentNumber) {
+            return false;
+          }
+          currentNumber++;
+        }
+      }
+
+      return true;
+    }
+    initializeBoard();
+  </script>
+
+</body>
+</html>

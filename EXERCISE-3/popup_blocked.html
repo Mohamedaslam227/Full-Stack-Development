@@ -1,0 +1,34 @@
+<html>
+    <head>
+        <title>Pop Up Detection</title>
+    </head>
+    <script>
+        var newWin;
+        function newWindow()
+        {
+            newWin=window.open("pop.html","hello","width=500,height=500");
+        }
+        function checkPopup()
+        {
+            event.preventDefault();
+            p=document.getElementById("para");
+            if(newWin.closed===false)
+            {
+                newWin.close();
+                if(newWin.closed===true)
+                {
+                    p.innerHTML="Pop-up Has been detected and blocked!";
+                }   
+            }
+            else
+            {
+                p.innerHTML="No Pop-up has been detected!";
+            }
+        }
+    </script>
+    <body onload="newWindow()">
+        <h2>Pop Up Detector</h2>
+        <input type="button" value="Check Popup" id="check" onclick="checkPopup()">
+        <p id="para"></p>
+    </body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Animal Survey</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Pet Animal Survey</h1>
+        <form id="survey-form">
+            <label for="name">Your Name:</label>
+            <input type="text" id="name" name="name" required>
+            <label for="owns-pets">Do you currently own any pets?</label>
+            <select id="owns-pets" name="owns-pets" required>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
+            <div id="pets-info" style="display: none;">
+                <label for="number-of-pets">How many pets do you own?</label>
+                <input type="number" id="number-of-pets" name="number-of-pets">
+                <label>What types of pets do you own?</label>
+                <input type="checkbox" id="dog" name="pet-type" value="dog">
+                <label for="dog">Dog</label>
+                <input type="checkbox" id="cat" name="pet-type" value="cat">
+                <label for="cat">Cat</label>
+                <input type="checkbox" id="rabbit" name="pet-type" value="rabbit">
+                <label for="rabbit">Rabbit</label>
+                <input type="checkbox" id="bird" name="pet-type" value="bird">
+                <label for="bird">Bird</label>
+                <input type="checkbox" id="fish" name="pet-type" value="fish">
+                <label for="fish">Fish</label>
+                <input type="checkbox" id="other" name="pet-type" value="other">
+                <label for="other">Other</label>
+                <label for="acquisition-methods">How did you acquire your pet(s)?</label>
+                <input type="checkbox" id="adopted" name="acquisition-method" value="adopted">
+                <label for="adopted">Adopted from shelter/rescue</label>
+                <input type="checkbox" id="purchased" name="acquisition-method" value="purchased">
+                <label for="purchased">Purchased from breeder</label>
+                <input type="checkbox" id="gift" name="acquisition-method" value="gift">
+                <label for="gift">Received as a gift</label>
+                <input type="checkbox" id="stray" name="acquisition-method" value="stray">
+                <label for="stray">Found as a stray</label>
+                <input type="checkbox" id="other-acquisition" name="acquisition-method" value="other">
+                <label for="other-acquisition">Other</label>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+        <div id="result"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

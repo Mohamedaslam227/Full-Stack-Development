@@ -1,0 +1,101 @@
+<html>
+<head>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 50%;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: center;
+    }
+    #colorDisplay {
+      margin-top: 10px;
+      padding: 10px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<table id="colorTable">
+  <tr>
+    <th>Color Code</th>
+  </tr>
+  <tr>
+    <td data-color="#ff0000">#ff0000</td>
+  </tr>
+  <tr>
+    <td data-color="#00ff00">#00ff00</td>
+  </tr>
+  <tr>
+    <td data-color="#0000ff">#0000ff</td>
+  </tr>
+  <tr>
+    <td data-color="#ff9900">#ff9900</td>
+  </tr>
+  <tr>
+    <td data-color="#6600cc">#6600cc</td>
+  </tr>
+  <tr>
+    <td data-color="#ffa500">#ffa500</td>
+  </tr>
+  <tr>
+    <td data-color="#ff00ff">#ff00ff</td>
+  </tr>
+  <tr>
+    <td data-color="#00ffff">#00ffff</td>
+  </tr>
+  <tr>
+    <td data-color="#ffff00">#ffff00</td>
+  </tr>
+  <tr>
+    <td data-color="#800080">#800080</td>
+  </tr>
+  <tr>
+    <td data-color="#008080">#008080</td>
+  </tr>
+  <tr>
+    <td data-color="#808000">#808000</td>
+  </tr>
+</table>
+
+<div id="colorDisplay"></div>
+
+<script>
+  const colorTable = document.getElementById('colorTable');
+  const colorDisplay = document.getElementById('colorDisplay');
+  const cells = colorTable.getElementsByTagName('td');
+  const colorNames = {
+    '#ff0000': 'Red',
+    '#00ff00': 'Green',
+    '#0000ff': 'Blue',
+    '#ff9900': 'Orange',
+    '#6600cc': 'Purple',
+    '#ffa500': 'Orange',
+    '#ff00ff': 'Magenta',
+    '#00ffff': 'Cyan',
+    '#ffff00': 'Yellow',
+    '#800080': 'Purple',
+    '#008080': 'Teal',
+    '#808000': 'Olive',
+  };
+
+  for (let cell of cells) {
+    cell.addEventListener('mouseover', function () {
+      const colorCode = this.getAttribute('data-color');
+      this.style.color = colorCode;
+    });
+
+    cell.addEventListener('mouseout', function () {
+      this.style.color = '';
+      const colorCode = this.getAttribute('data-color');
+      const colorName = colorNames[colorCode] || 'Unknown';
+      colorDisplay.innerHTML = `Color: ${colorCode}<br>Name: ${colorName}`;
+    });
+  }
+</script>
+
+</body>
+</html>

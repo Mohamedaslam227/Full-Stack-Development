@@ -1,0 +1,103 @@
+// server.js
+const net = require('net');
+
+// Create a TCP server
+const server = net.createServer(function(socket) {
+  // Handle incoming connections
+  console.log('Client connected');
+
+  // Listen for data from the client
+  socket.on('data', function(data) {
+    // Broadcast the data to all connected clients
+    server.clients.forEach(function(client) {
+      client.write(data);
+    });
+  });
+
+  // Add the client to the list of connected clients
+  server.clients.push(socket);
+
+  // Handle the client disconnecting
+  socket.on('end', function() {
+    // Remove the client from the list of connected clients
+    server.clients.splice(server.clients.indexOf(socket), 1);
+    console.log('Client disconnected');
+  });
+});
+
+// Start the server
+server.listen(8080, function() {
+  console.log('Server listening on port 8080');
+});
+
+// client.js
+const net = require('net');
+
+// Create a TCP client
+const client = net.connect({port: 8080}, function() {
+  // Handle connection success
+  console.log('Connected to server');
+
+  // Read data from the server
+  client.on('data', function(data) {
+    // Display the data on the console
+    console.log(data.toString());
+  });
+
+  // Send data to the server
+  client.write('Hello from the client!');
+});
+
+// Handle the client disconnecting
+client.on('end', function() {
+  console.log('Disconnected from server');
+});
+
+
+
+2)
+
+
+// Server.js
+const http = require('http');
+
+const server = http.createServer((req, res) => {
+  // Get the message from the client
+  const message = req.url.split('?')[1];
+
+  // Split the message into words
+  const words = message.split(' ');
+
+  // Count the number of words and characters
+  const wordCount = words.length;
+  const characterCount = message.length;
+
+  // Send the response back to the client
+  res.setHeader('Content-Type', 'text/plain');
+  res.end(`Word count: ${wordCount}, Character count: ${characterCount}`);
+});
+
+server.listen(3000, () => {
+  console.log('Server listening on port 3000');
+});
+
+// Client.js
+const http = require('http');
+
+const message = 'Hello world!';
+
+const options = {
+  hostname: 'localhost',
+  port: 3000,
+  path: `/?message=${message}`,
+  method: 'GET'
+};
+
+const req = http.request(options, (res) => {
+  res.on('data', (chunk) => {
+    console.log(chunk.toString());
+  });
+});
+
+req.end();
+
